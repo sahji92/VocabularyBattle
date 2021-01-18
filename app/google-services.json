@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "34830817914",
+    "project_id": "vocabularybattle",
+    "storage_bucket": "vocabularybattle.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:34830817914:android:72a67d536d599ca6dfb9c3",
+        "android_client_info": {
+          "package_name": "com.example.vocabularybattle"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "34830817914-an1sb3fd29roe4l6d59iemfg0229j8q9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD8LUzSIP7H4P98WGWH2XXslNlXkIoghnw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "34830817914-an1sb3fd29roe4l6d59iemfg0229j8q9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
