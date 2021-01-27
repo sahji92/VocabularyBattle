@@ -31,4 +31,8 @@ public class AuthViewModel extends AndroidViewModel {
     public void setMainContext(FragmentActivity activity) {
         authRepository.setMainCntxt(activity);
     }
+
+    public void register(String username, String password) {
+        authRepository.register(username,password);
+    }
 }

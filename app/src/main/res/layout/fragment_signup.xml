@@ -28,7 +28,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Username"
+            android:hint="Email"
             app:boxBackgroundColor="@color/primaryDarkColor"
             app:hintTextColor="@android:color/white"
             android:layout_marginBottom="10dp">
@@ -38,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textAutoComplete"
                 android:textSize="18sp"
-                android:textColorHint="@android:color/white"/>
+                android:textColorHint="@android:color/white" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -47,7 +47,8 @@
             android:hint="Password"
             app:boxBackgroundColor="@color/primaryDarkColor"
             app:hintTextColor="@android:color/white"
-            android:layout_marginBottom="18dp">
+            android:layout_marginBottom="18dp"
+            app:endIconMode="password_toggle">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/signupPassword"
                 android:layout_width="match_parent"
@@ -62,7 +63,8 @@
             android:hint="Repeat Password"
             app:boxBackgroundColor="@color/primaryDarkColor"
             app:hintTextColor="@android:color/white"
-            android:layout_marginBottom="18dp">
+            android:layout_marginBottom="18dp"
+            app:endIconMode="password_toggle">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/signupRepeatPassword"
                 android:layout_width="match_parent"

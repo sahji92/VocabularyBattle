@@ -1,42 +1,25 @@
-package com.example.vocabularybattle.persistance;
-
-import android.app.Activity;
-import android.content.Context;
-import android.nfc.Tag;
+ package com.example.vocabularybattle.persistance;
 import android.util.Log;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.vocabularybattle.MainActivity;
 import com.example.vocabularybattle.model.User;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.Executor;
-
-import static android.content.ContentValues.TAG;
-
-public class AuthRepository {
+ public class AuthRepository {
     private FirebaseAuth mAuth= FirebaseAuth.getInstance();
    private FragmentActivity fActivity;
     private FirebaseFirestore rootRef = FirebaseFirestore.getInstance();
     private CollectionReference usersRef = rootRef.collection("/users");
+   // private CollectionReference customUsersRef = rootRef.collection("/customUsers");
     private static final String TAG="Authrepository";
 
     public MutableLiveData<User> firebaseSignInWithFacebook(AuthCredential credential){
@@ -52,7 +35,8 @@ public class AuthRepository {
                             String uid = firebaseUser.getUid();
                             String name = firebaseUser.getDisplayName();
                             String email = firebaseUser.getEmail();
-                            User user = new User(uid, name, email);
+                            String username=name.substring(0,3)+uid.substring(0,3)+ (int) (Math.random() * 200);
+                            User user = new User(uid, name, email,username);
                             user.isNew=isNewUser;
                             authenticatedUserMutableLiveData.setValue(user);
                         }
@@ -100,4 +84,24 @@ public class AuthRepository {
         });
         return newUserMutableLiveData;
     }
+     public void register(String username,String password){
+         Log.d(TAG, "inside registeRRRRRRRRRR");
+         mAuth.createUserWithEmailAndPassword(username, password)
+                 .addOnCompleteListener(fActivity, task -> {
+                     Log.d(TAG, "inside addONCPMPLETElisterrrrrrrrrr");
+                     if (task.isSuccessful()) {
+                         // Sign in success, update UI with the signed-in user's information
+                         Log.d(TAG, "createUserWithEmail:successSSSSSSSSS");
+                         FirebaseUser user = mAuth.getCurrentUser();
+                         // String usrname=user.getEmail().substring(0,3)+user.getUid().substring(0,3)+ (int) (Math.random() * 200);
+                         //  CustomUser customUser=new CustomUser(username);
+                         //databaseReference.child("users").child(user.getUid()).setValue(customUser);
+                     } else {
+                         // If sign in fails, display a message to the user.
+                         Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                         //  updateUI(null);
+                     }
+                 });
+     }
+
 }
