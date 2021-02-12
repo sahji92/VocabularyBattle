@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/primaryDarkColor">
+    android:background="@color/cool"
+    android:id="@+id/mainlayout">
     <LinearLayout
         android:id="@+id/vSignupScreen"
         android:layout_width="match_parent"
@@ -15,21 +16,18 @@
         android:paddingRight="18dp"
         android:layout_marginTop="20dp"
         android:onClick="hideKeyboardOnTouch">
-        <de.hdodenhof.circleimageview.CircleImageView
+        <ImageView
             android:layout_width="110dp"
             android:layout_height="110dp"
             android:src="@drawable/v"
             android:layout_gravity="center"
-            app:civ_border_width="2dp"
-            app:civ_border_color="@android:color/white"
             android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            app:civ_circle_background_color="@color/primaryColor"/>
+            android:layout_marginBottom="5dp"/>
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Email"
-            app:boxBackgroundColor="@color/primaryDarkColor"
+            app:boxBackgroundColor="@color/cool"
             app:hintTextColor="@android:color/white"
             android:layout_marginBottom="10dp">
             <com.google.android.material.textfield.TextInputEditText
@@ -38,40 +36,41 @@
                 android:layout_height="wrap_content"
                 android:inputType="textAutoComplete"
                 android:textSize="18sp"
-                android:textColorHint="@android:color/white" />
+                android:textColorHint="@android:color/white"
+                android:textStyle="bold"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Password"
-            app:boxBackgroundColor="@color/primaryDarkColor"
+            app:boxBackgroundColor="@color/cool"
             app:hintTextColor="@android:color/white"
-            android:layout_marginBottom="18dp"
-            app:endIconMode="password_toggle">
+            android:layout_marginBottom="18dp">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/signupPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
                 android:textSize="18sp"
-                android:textColorHint="@android:color/white"/>
+                android:textColorHint="@android:color/white"
+                android:textStyle="bold"/>
         </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Repeat Password"
-            app:boxBackgroundColor="@color/primaryDarkColor"
+            app:boxBackgroundColor="@color/cool"
             app:hintTextColor="@android:color/white"
-            android:layout_marginBottom="18dp"
-            app:endIconMode="password_toggle">
+            android:layout_marginBottom="18dp">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/signupRepeatPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
                 android:textSize="18sp"
-                android:textColorHint="@android:color/white"/>
+                android:textColorHint="@android:color/white"
+                android:textStyle="bold"/>
         </com.google.android.material.textfield.TextInputLayout>
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/registerButton"

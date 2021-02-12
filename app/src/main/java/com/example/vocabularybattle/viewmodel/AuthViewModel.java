@@ -10,6 +10,8 @@ import androidx.lifecycle.LiveData;
 import com.example.vocabularybattle.model.User;
 import com.example.vocabularybattle.persistance.AuthRepository;
 import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.FirebaseUser;
+
 public class AuthViewModel extends AndroidViewModel {
     public LiveData<User> createdUserLiveData;
     AuthRepository authRepository;
@@ -33,6 +35,9 @@ public class AuthViewModel extends AndroidViewModel {
     }
 
     public void register(String username, String password) {
-        authRepository.register(username,password);
+        // authRepository.register(username,password);
+    }
+    public void signin(String username, String password) {
+      //  authRepository.signin(username,password);
     }
 }

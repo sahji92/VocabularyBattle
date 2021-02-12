@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -30,6 +31,8 @@ import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textview.MaterialTextView;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
@@ -50,6 +53,8 @@ import static android.content.ContentValues.TAG;
  * create an instance of this fragment.
  */
 public class LoginFragment extends Fragment {
+    TextInputEditText username;
+    TextInputEditText password;
     private AppCompatButton loginButton;
     private LoginButton fbLoginButton;
     private MaterialTextView signupButton;
@@ -58,7 +63,8 @@ public class LoginFragment extends Fragment {
     private FirebaseAuth mAuth= FirebaseAuth.getInstance();
     private AuthViewModel authViewModel;
     ProgressDialog progressDialog;
-
+    private ScrollView signinmainlayout;
+    String usernamePattern="[a-zA-Z]+[@]+[v]+[b]+[.]+[c]+[o]+[m]";
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -114,11 +120,47 @@ public class LoginFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         loginButton=view.findViewById(R.id.loginButton);
         signupButton=view.findViewById(R.id.signupButton);
+        username=view.findViewById(R.id.loginUsername);
+        password=view.findViewById(R.id.loginPassword);
+        signinmainlayout=view.findViewById(R.id.signinmainlayout);
+        if(mAuth.getCurrentUser()!=null){
+             Intent intent = new Intent(getActivity(), HomeActivity.class);
+            startActivity(intent);
+             getActivity().finish();
+        }
         NavController controller= Navigation.findNavController(view);
         signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 controller.navigate(R.id.action_loginFragment_to_signupFragment3);
+            }
+        });
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(validate()) {
+                    progressDialog.show();
+                    mAuth.signInWithEmailAndPassword(username.getText().toString(), password.getText().toString()).addOnCompleteListener(task -> {
+                        if(task.isSuccessful()){
+                            Log.d(TAG,"success");
+                            Intent intent = new Intent(getActivity(), HomeActivity.class);
+                           startActivity(intent);
+                        }
+                        else{
+                            Log.d(TAG,"fail");
+                            Snackbar.make(signinmainlayout,"invalid username/password",Snackbar.LENGTH_LONG).setTextColor(getResources().getColor(R.color.red))
+                                    .setAction("close", new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+
+                                        }
+                                    })
+                                    .setActionTextColor(getResources().getColor(R.color.primaryTextColor))
+                                    .show();
+                        }
+                        progressDialog.dismiss();
+                    });
+                }
             }
         });
         callbackManager = CallbackManager.Factory.create();
@@ -200,6 +242,7 @@ public class LoginFragment extends Fragment {
         startActivity(intent);
         progressDialog.dismiss();
         getActivity().finish();
+
     }
 public void initProgressDialog(){
     progressDialog=new ProgressDialog(getActivity());
@@ -209,4 +252,29 @@ public void initProgressDialog(){
     progressDialog.setCancelable(false);
     progressDialog.setIcon(R.drawable.v);
 }
+    private boolean validate() {
+        boolean valid = true;
+
+        String id = username.getText().toString();
+        String pwd = password.getText().toString();
+
+        if (id.isEmpty() || id.length()<6||id.length()>16) {
+            username.setError("Email must contain atleast 6 and atmost 16 characters");
+            valid = false;
+        }
+        else if(!id.trim().matches(usernamePattern)){
+            username.setError("Email must be in the format of JohnDoe@vb");
+            valid = false;
+        }
+        else {
+            username.setError(null);
+        }
+        if (pwd.isEmpty() || pwd.length() < 6 || pwd.length() > 16) {
+            password.setError("password must contain atleast 6 and atmost 16 characters");
+            valid = false;
+        } else {
+            password.setError(null);
+        }
+        return valid;
+    }
 }
